@@ -106,8 +106,9 @@ namespace directionOfMouseMovement
             float u = GetAngleOfLineBetweenTwoPoints(new Point(e.X, e.Y), new Point(cpointx, cpointy));
             Text += ":::: " + u.ToString();
 
-
-
+            g.DrawLine(new Pen(Color.Black, 1), new Point(e.X, e.Y), new Point(prevposx, prevposy));
+            g.DrawLine(new Pen(Color.Red, 1), new Point(e.X, e.Y), new Point(cpointx, cpointy));
+            /*
 
             g.DrawLine(new Pen(Color.Black,1), new Point(e.X, e.Y), new Point(prevposx, prevposy));
             g.DrawLine(new Pen(Color.Red, 1), new Point(e.X, e.Y), new Point(cpointx, cpointy));
@@ -122,7 +123,7 @@ namespace directionOfMouseMovement
             g.DrawLine(new Pen(Color.Red, 1), new Point(Width, 0), new Point(cpointx, cpointy));
             g.DrawLine(new Pen(Color.Black, 1), new Point(0, Height-20), new Point(prevposx, prevposy));
             g.DrawLine(new Pen(Color.Red, 1), new Point(0, Height-20), new Point(cpointx, cpointy));
-
+            */
 
 
             //gaseste punctul invers pozitiei actuale eXY fata de punctul selectat cpointXY
@@ -155,7 +156,59 @@ namespace directionOfMouseMovement
 
 
 
-            g.DrawLine(new Pen(Color.Red, 1), new Point(e.X,e.Y), new Point((int)cx,(int)cy));
+            //g.DrawLine(new Pen(Color.Red, 1), new Point(e.X,e.Y), new Point((int)cx,(int)cy));
+
+
+            //calculati punctele unde o dreapta trasat de la eXY la cpointXY va atinge marginile ferestrei sau a unui cerc 
+            //sau prelungiti dreptele eXY prin cXY in fata si spate pana atinge o margine data fereastra sau raza unui cerc
+            if (e.X > cpointx)
+            {
+                cx = cpointx - (e.X - cpointx) * 20;
+
+            }
+
+            if (e.Y > cpointy)
+            {
+                cy = cpointy - (e.Y - cpointy) * 20;
+            }
+
+            if (e.X < cpointx)
+            {
+                cx = cpointx + (cpointx - e.X) * 20;
+
+            }
+
+            if (e.Y < cpointy)
+            {
+                cy = cpointy + (cpointy - e.Y)*20;
+            }
+
+            g.DrawLine(new Pen(Color.Red, 1), new Point(e.X, e.Y), new Point((int)cx, (int)cy));
+
+
+            if (e.X > cpointx)
+            {
+                cx = e.X - ( cpointx - e.X) * 20;
+
+            }
+
+            if (e.Y > cpointy)
+            {
+                cy = e.Y - (cpointy - e.Y ) * 20;
+            }
+
+            if (e.X < cpointx)
+            {
+                cx = e.X + (e.X - cpointx ) * 20;
+
+            }
+
+            if (e.Y < cpointy)
+            {
+                cy = e.Y + (e.Y - cpointy ) * 20;
+            }
+
+            g.DrawLine(new Pen(Color.Red, 1), new Point(cpointx, cpointy), new Point((int)cx, (int)cy));
 
             prevposx = e.X;
             prevposy = e.Y;
