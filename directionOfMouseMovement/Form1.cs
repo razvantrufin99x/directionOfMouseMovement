@@ -102,7 +102,10 @@ namespace directionOfMouseMovement
         Text  = rezultat ;
         Text += ": L:" + diferentaAB(e.X,prevposx);
         Text += " T:" + diferentaAB(e.Y, prevposy);
-      
+            Text += ":::" + e.X.ToString() + " : " + e.Y.ToString();
+            float u = GetAngleOfLineBetweenTwoPoints(new Point(e.X, e.Y), new Point(cpointx, cpointy));
+            Text += ":::: " + u.ToString();
+
 
 
 
@@ -121,12 +124,43 @@ namespace directionOfMouseMovement
             g.DrawLine(new Pen(Color.Red, 1), new Point(0, Height-20), new Point(cpointx, cpointy));
 
 
+
+            //gaseste punctul invers pozitiei actuale eXY fata de punctul selectat cpointXY
+            //a.i. punctul de partea cealalta a cpointXY in oglinda este creat de un patrulater care are in coltul A eXY
+            // .... si in mijloc pe cpointXY.
+            //daca A(1,1) si M(6,6) atunci C(?,?) = Mx + Ax = Cx si Cy = Ay - My
+            float cx=e.X;
+            float cy=e.Y;
+            if (e.X > cpointx)
+            {
+                cx = cpointx-( e.X - cpointx);
+  
+            }
+
+            if (e.Y > cpointy)
+            {
+                cy = cpointy-(e.Y - cpointy);
+            }
+
+            if (e.X < cpointx)
+            {
+                cx = cpointx + ( cpointx - e.X);
+
+            }
+
+            if (e.Y < cpointy)
+            {
+                cy = cpointy + ( cpointy - e.Y);
+            }
+
+
+
+            g.DrawLine(new Pen(Color.Red, 1), new Point(e.X,e.Y), new Point((int)cx,(int)cy));
+
             prevposx = e.X;
             prevposy = e.Y;
-            Text +=":::" + e.X.ToString() + " : " + e.Y.ToString();
-            Text += ":::: " + GetAngleOfLineBetweenTwoPoints(new Point(e.X, e.Y), new Point(cpointx, cpointy)).ToString();
-        }
-
+                }
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             g = CreateGraphics();
