@@ -231,27 +231,27 @@ namespace directionOfMouseMovement
 
 
             //UP
-            H1.x1 = 0;
+            H1.x1 = -10000;
             H1.y1 = 0;
-            H1.x2 = Width;
+            H1.x2 = Width+10000;
             H1.y2 = 0;
 
             //LEFT
             V1.x1 = 0;
-            V1.y1 = 0;
+            V1.y1 = -10000;
             V1.x2 = 0;
-            V1.y2 = Height;
+            V1.y2 = Height+10000;
             //DOWN
-            H2.x1 =0;
+            H2.x1 =-10000;
             H2.y1 = Height;
-            H2.x2 = Width;
+            H2.x2 = Width+10000;
             H2.y2 = Height;
 
             //RIGHT
             V2.x1 = Width;
-            V2.y1 = 0;
+            V2.y1 = -10000;
             V2.x2 = Width;
-            V2.y2 = Height;
+            V2.y2 = Height+10000;
 
             pPoint A1 = FindIntersection(AB , H1 , 0.001);
             pPoint B1 = FindIntersection(AB, V1, 0.001);
