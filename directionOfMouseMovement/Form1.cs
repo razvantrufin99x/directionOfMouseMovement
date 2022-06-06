@@ -163,24 +163,24 @@ namespace directionOfMouseMovement
             //sau prelungiti dreptele eXY prin cXY in fata si spate pana atinge o margine data fereastra sau raza unui cerc
             if (e.X > cpointx)
             {
-                cx = cpointx - (e.X - cpointx) * 20;
+                cx = cpointx - (e.X - cpointx) * 20000;
 
             }
 
             if (e.Y > cpointy)
             {
-                cy = cpointy - (e.Y - cpointy) * 20;
+                cy = cpointy - (e.Y - cpointy) * 20000;
             }
 
             if (e.X < cpointx)
             {
-                cx = cpointx + (cpointx - e.X) * 20;
+                cx = cpointx + (cpointx - e.X) * 20000;
 
             }
 
             if (e.Y < cpointy)
             {
-                cy = cpointy + (cpointy - e.Y)*20;
+                cy = cpointy + (cpointy - e.Y)*20000;
             }
             
             int pcx1 = (int)cx;
@@ -191,24 +191,24 @@ namespace directionOfMouseMovement
 
             if (e.X > cpointx)
             {
-                cx = e.X - ( cpointx - e.X) * 20;
+                cx = e.X - ( cpointx - e.X) * 20000;
 
             }
 
             if (e.Y > cpointy)
             {
-                cy = e.Y - (cpointy - e.Y ) * 20;
+                cy = e.Y - (cpointy - e.Y ) * 20000;
             }
 
             if (e.X < cpointx)
             {
-                cx = e.X + (e.X - cpointx ) * 20;
+                cx = e.X + (e.X - cpointx ) * 20000;
 
             }
 
             if (e.Y < cpointy)
             {
-                cy = e.Y + (e.Y - cpointy ) * 20;
+                cy = e.Y + (e.Y - cpointy ) * 20000;
             }
 
             int pcx2 = (int)cx;
