@@ -105,7 +105,7 @@ namespace directionOfMouseMovement
             Text += ":::" + e.X.ToString() + " : " + e.Y.ToString();
             float u = GetAngleOfLineBetweenTwoPoints(new Point(e.X, e.Y), new Point(cpointx, cpointy));
             Text += ":::: " + u.ToString();
-
+            /*
             g.DrawLine(new Pen(Color.Black, 1), new Point(e.X, e.Y), new Point(prevposx, prevposy));
             g.DrawLine(new Pen(Color.Red, 1), new Point(e.X, e.Y), new Point(cpointx, cpointy));
             
@@ -123,7 +123,7 @@ namespace directionOfMouseMovement
             g.DrawLine(new Pen(Color.Red, 1), new Point(Width, 0), new Point(cpointx, cpointy));
             g.DrawLine(new Pen(Color.Black, 1), new Point(0, Height-20), new Point(prevposx, prevposy));
             g.DrawLine(new Pen(Color.Red, 1), new Point(0, Height-20), new Point(cpointx, cpointy));
-            
+            */
 
 
             //gaseste punctul invers pozitiei actuale eXY fata de punctul selectat cpointXY
@@ -231,42 +231,63 @@ namespace directionOfMouseMovement
 
 
             //UP
-            H1.x1 = -10000;
+            H1.x1 = 0;
             H1.y1 = 0;
-            H1.x2 = Width+10000;
+            H1.x2 = Width;
             H1.y2 = 0;
 
             //LEFT
             V1.x1 = 0;
-            V1.y1 = -10000;
+            V1.y1 = 0;
             V1.x2 = 0;
-            V1.y2 = Height+10000;
+            V1.y2 = Height;
             //DOWN
-            H2.x1 =-10000;
+            H2.x1 =0;
             H2.y1 = Height;
-            H2.x2 = Width+10000;
+            H2.x2 = Width;
             H2.y2 = Height;
 
             //RIGHT
             V2.x1 = Width;
-            V2.y1 = -10000;
+            V2.y1 = 0;
             V2.x2 = Width;
-            V2.y2 = Height+10000;
+            V2.y2 = Height;
 
             pPoint A1 = FindIntersection(AB , H1 , 0.001);
             pPoint B1 = FindIntersection(AB, V1, 0.001);
             pPoint A2 = FindIntersection(AB, H2, 0.001);
             pPoint B2 = FindIntersection(AB, V2, 0.001);
 
+
+            //repair AB12 coords of lines
             g.DrawLine(new Pen(Color.Red, 1) , (int)A1.x, (int)A1.y, (int)B1.x, (int)B1.y);
             g.DrawLine(new Pen(Color.Red, 1), (int)A2.x, (int)A2.y, (int)B2.x, (int)B2.y);
-            g.DrawLine(new Pen(Color.Red, 1), (int)A1.x, (int)A1.y, (int)A2.x, (int)B2.y);
-            g.DrawLine(new Pen(Color.Red, 1), (int)B1.x, (int)B1.y, (int)B2.x, (int)B2.y);
+            //g.DrawLine(new Pen(Color.Red, 1), (int)A1.x, (int)A1.y, (int)A2.x, (int)A2.y);
+            //g.DrawLine(new Pen(Color.Red, 1), (int)B1.x, (int)B1.y, (int)B2.x, (int)B2.y);
 
-            g.DrawEllipse(new Pen(Color.Red, 2), (int)A1.x, (int)A2.x,5,5);
-            g.DrawEllipse(new Pen(Color.Red, 2), (int)A2.x, (int)A2.x, 5, 5);
-            g.DrawEllipse(new Pen(Color.Red, 2), (int)B1.x, (int)B1.x, 5, 5);
-            g.DrawEllipse(new Pen(Color.Red, 2), (int)B1.x, (int)B2.x, 5, 5);
+
+            //repair xy pos
+            //g.DrawEllipse(new Pen(Color.Red, 2), (int)A1.x, (int)A2.y, 15, 15);
+            //g.DrawEllipse(new Pen(Color.Red, 2), (int)A2.x, (int)A2.y, 15, 15);
+            //g.DrawEllipse(new Pen(Color.Red, 2), (int)B1.x, (int)B1.y, 15, 15);
+            //g.DrawEllipse(new Pen(Color.Red, 2), (int)B1.x, (int)B2.y, 15, 15);
+
+
+            this.Text += "=== AB";
+           this.Text += AB.x1.ToString(); this.Text += ":";
+            this.Text += AB.y1.ToString(); this.Text += ": A1";
+
+
+            this.Text += A1.x.ToString(); this.Text += ":";
+            this.Text += A1.y.ToString(); this.Text += ": B1";
+            this.Text += B1.x.ToString(); this.Text += ":";
+            this.Text += B1.x.ToString(); this.Text += ": A2";
+
+            this.Text += A2.x.ToString(); this.Text += ":";
+            this.Text += A2.x.ToString(); this.Text += ": B2";
+            this.Text += B2.x.ToString(); this.Text += ":";
+            this.Text += B2.x.ToString(); this.Text += ":";
+
 
 
             prevposx = e.X;
