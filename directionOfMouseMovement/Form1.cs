@@ -17,6 +17,26 @@ namespace directionOfMouseMovement
 
         public int difx = 0, dify = 0;
 
+        DateTime starttime = DateTime.Now;
+        DateTime endtime;
+
+        public float distantaintredouapuncte2dxy(float x1, float y1, float x2, float y2)
+        {
+            float c;
+            c = (float)Math.Sqrt(Math.Abs(x1 - x2) * Math.Abs(x1 - x2) + Math.Abs(y1 - y2) * Math.Abs(y1 - y2));
+            return c;
+        }
+
+        public float calculeazadistanta(float x1, float y1, float x2, float y2)
+        {
+            float r = distantaintredouapuncte2dxy(x1, y1, x2, y2);
+            
+            Text+="::r:::" +  r.ToString();
+
+            return r;            
+        }
+
+
         public string direction(string left, string right, string up, string down)
         {
 
@@ -92,7 +112,11 @@ namespace directionOfMouseMovement
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-          g.Clear(BackColor);
+
+            DateTime starttime = DateTime.Now;
+            DateTime endtime;
+
+            g.Clear(BackColor);
         string L = determindirectionLeft(e.X, prevposx);
         string R = determindirectionRight(e.X, prevposx);
         string U = determindirectionUp(e.Y, prevposy);
@@ -163,24 +187,24 @@ namespace directionOfMouseMovement
             //sau prelungiti dreptele eXY prin cXY in fata si spate pana atinge o margine data fereastra sau raza unui cerc
             if (e.X > cpointx)
             {
-                cx = cpointx - (e.X - cpointx) * 20000;
+                cx = cpointx - (e.X - cpointx) * 1;
 
             }
 
             if (e.Y > cpointy)
             {
-                cy = cpointy - (e.Y - cpointy) * 20000;
+                cy = cpointy - (e.Y - cpointy) * 1;
             }
 
             if (e.X < cpointx)
             {
-                cx = cpointx + (cpointx - e.X) * 20000;
+                cx = cpointx + (cpointx - e.X) * 1;
 
             }
 
             if (e.Y < cpointy)
             {
-                cy = cpointy + (cpointy - e.Y)*20000;
+                cy = cpointy + (cpointy - e.Y)*1;
             }
             
             int pcx1 = (int)cx;
@@ -191,24 +215,24 @@ namespace directionOfMouseMovement
 
             if (e.X > cpointx)
             {
-                cx = e.X - ( cpointx - e.X) * 20000;
+                cx = e.X - ( cpointx - e.X) * 1;
 
             }
 
             if (e.Y > cpointy)
             {
-                cy = e.Y - (cpointy - e.Y ) * 20000;
+                cy = e.Y - (cpointy - e.Y ) * 1;
             }
 
             if (e.X < cpointx)
             {
-                cx = e.X + (e.X - cpointx ) * 20000;
+                cx = e.X + (e.X - cpointx ) * 1;
 
             }
 
             if (e.Y < cpointy)
             {
-                cy = e.Y + (e.Y - cpointy ) * 20000;
+                cy = e.Y + (e.Y - cpointy ) * 1;
             }
 
             int pcx2 = (int)cx;
@@ -290,9 +314,32 @@ namespace directionOfMouseMovement
 
 
 
+           
+
+
+
+            endtime = DateTime.Now;
+
+            int ms = endtime.Millisecond - starttime.Millisecond;
+            int s = endtime.Second - starttime.Second;
+            int min = endtime.Minute - starttime.Minute;
+            int h = endtime.Hour - starttime.Hour;
+            int d = endtime.Day - starttime.Day;
+
+
+            TimeSpan ts = (endtime - starttime);
+
+            float dis = calculeazadistanta(prevposx, prevposy, e.X, e.Y);
+            float v = d / ts.Milliseconds;
+
+            Text += "::t::" + ts.ToString() + "::v=::" + v.ToString() + "::dis=::" + dis.ToString();
+
+
+            consolafrm.write(this.Text, "w");
+
             prevposx = e.X;
             prevposy = e.Y;
-                }
+        }
 
 
 
@@ -324,13 +371,13 @@ namespace directionOfMouseMovement
                 // equations of the form x = c (two vertical lines)
                 if (Math.Abs(x1 - x2) < tolerance && Math.Abs(x3 - x4) < tolerance && Math.Abs(x1 - x3) < tolerance)
                 {
-                    throw new Exception("Both lines overlap vertically, ambiguous intersection points.");
+                    //throw new Exception("Both lines overlap vertically, ambiguous intersection points.");
                 }
 
                 //equations of the form y=c (two horizontal lines)
                 if (Math.Abs(y1 - y2) < tolerance && Math.Abs(y3 - y4) < tolerance && Math.Abs(y1 - y3) < tolerance)
                 {
-                    throw new Exception("Both lines overlap horizontally, ambiguous intersection points.");
+                    //throw new Exception("Both lines overlap horizontally, ambiguous intersection points.");
                 }
 
                 //equations of the form x=c (two vertical parallel lines)
@@ -440,13 +487,16 @@ namespace directionOfMouseMovement
                        && (y >= line.y1 && y <= line.y2
                             || y >= line.y2 && y <= line.y1);
             }
+
+
+
+        Consola consolafrm = new Consola();
         
-
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
             g = CreateGraphics();
+            consolafrm.Left = this.Left + this.Width + 10;
+            consolafrm.Visible = true;
 
         }
     }
